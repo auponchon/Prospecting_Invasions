@@ -53,7 +53,7 @@ maxy.time.soc<-rbind(maxy.time.soc,taba)
 
 range.shift.soc$CellRange<-as.factor(range.shift.soc$CellRange)
 range.shift.soc$ProspPatch<-as.factor(range.shift.soc$ProspPatch)
-range.shift.soc$Rate<-1-range.shift.soc$Rate
+#range.shift.soc$Rate<-1-range.shift.soc$Rate
 range.shift.soc$Rate<-as.factor(range.shift.soc$Rate)
 range.shift.soc$Scen<-as.factor(range.shift.soc$Scen)
 
