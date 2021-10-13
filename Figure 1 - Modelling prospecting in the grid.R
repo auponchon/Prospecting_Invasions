@@ -42,4 +42,4 @@ p = ggplot(dat, aes(x=x, y=y, fill=layer)) +
   
 print(p)
 
- ggsave("Figure 1 - Modelling of prospecting.jpg", plot=p, height=6, width=6, dpi=300)
+ ggsave("Figures/Figure 1 - Modelling of prospecting.jpg", plot=p, height=6, width=6, dpi=300)

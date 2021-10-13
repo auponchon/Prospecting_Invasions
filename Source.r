@@ -2,6 +2,7 @@ library(ggplot2)
 library(plotrix)
 library(viridis)
 library(gridExtra)
+library(dplyr)
 
 
 g_legend<-function(a.gplot){

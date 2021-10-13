@@ -5,7 +5,7 @@ library(fields)
 library(plotrix)
 library(tidyr)
 
-setwd("C:/Users/s03ap7/Desktop/Marie-Curie fellowship 2017-2019/IBM/2021-06-07 - Prospecting invasion/ProspectingInvasion/ProspectingInvasion/Outputs/Informed0.4")
+setwd("C:/Users/s03ap7/Desktop/Marie-Curie fellowship 2017-2019/IBM/2021-06-07 - Prospecting invasion/ProspectingInvasion/ProspectingInvasion/Outputs/Informed0.85")
 
 nam<-list.files(pattern="_pop.txt")
 #nam<-nam[grep("_Em_3_Evolprosp_0_Evolemigr_0_pop",nam)]
@@ -26,8 +26,6 @@ maxy.time.soc<-NULL
 
   print(c(tab$CellRange[1],tab$ProspPatch[1],tab$Rate[1]))
 
-  tabou<-subset(tab,tab$sim==5)
- 
 
 ##Range shifting rate
 tabo<-subset(tab, tab$gen==max(tab$gen) & tab$Nadult>0)
@@ -67,10 +65,10 @@ maxy.time.soc$Scen<-as.factor(maxy.time.soc$Scen)
 maxy.time.soc$gen<-maxy.time.soc$gen-200
 
 
-save(range.shift.soc,file="RangeShift_soc_0.4.RData")
- save(maxy.time.soc,file="maxy_time_soc_0.4.RData")
+save(range.shift.soc,file="C:/Users/s03ap7/Desktop/Marie-Curie fellowship 2017-2019/IBM/2021-06-07 - Prospecting invasion/ProspectingInvasion/ProspectingInvasion/R codes/Prospecting_Invasions/Data/RangeShift_soc_0.85.RData")
+save(maxy.time.soc,file="C:/Users/s03ap7/Desktop/Marie-Curie fellowship 2017-2019/IBM/2021-06-07 - Prospecting invasion/ProspectingInvasion/ProspectingInvasion/R codes/Prospecting_Invasions/Data/maxy_time_soc_0.85.RData")
 
- setwd("C:/Users/s03ap7/Desktop/Marie-Curie fellowship 2017-2019/IBM/2021-06-07 - Prospecting invasion/ProspectingInvasion/ProspectingInvasion/Outputs/Random0.2")
+ setwd("C:/Users/s03ap7/Desktop/Marie-Curie fellowship 2017-2019/IBM/2021-06-07 - Prospecting invasion/ProspectingInvasion/ProspectingInvasion/Outputs/Random0.5")
  
  nam<-list.files(pattern="_pop.txt")
  #nam<-nam[grep("_Em_3_Evolprosp_0_Evolemigr_0_pop",nam)]
@@ -133,7 +131,7 @@ save(range.shift.soc,file="RangeShift_soc_0.4.RData")
  
  
  
- save(range.shift.rand,file="RangeShift_rand_0.2.RData")
- save(maxy.time.rand,file="maxy_time_rand_0.2.RData")
+ save(range.shift.rand,file="C:/Users/s03ap7/Desktop/Marie-Curie fellowship 2017-2019/IBM/2021-06-07 - Prospecting invasion/ProspectingInvasion/ProspectingInvasion/R codes/Prospecting_Invasions/Data/RangeShift_rand_0.5.RData")
+ save(maxy.time.rand,file="C:/Users/s03ap7/Desktop/Marie-Curie fellowship 2017-2019/IBM/2021-06-07 - Prospecting invasion/ProspectingInvasion/ProspectingInvasion/R codes/Prospecting_Invasions/Data/maxy_time_rand_0.5.RData")
  
  

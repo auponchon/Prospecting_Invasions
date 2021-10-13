@@ -1,7 +1,7 @@
 source("Source.R")
 
 
-zzz.rand<-subset(maxy.time.rand,maxy.time.rand$Rate==0 | maxy.time.rand$Rate==0.3| maxy.time.rand$Rate==0.5|
+zzz.rand<-subset(maxy.time.rand$Rate==0.1 | maxy.time.rand$Rate==0.3| maxy.time.rand$Rate==0.5|
                 maxy.time.rand$Rate==0.7 | maxy.time.rand$Rate==1)
 zzz.rand<-subset(zzz.rand,zzz.rand$ProspPatch=="0" | zzz.rand$ProspPatch=="4"| 
                      zzz.rand$ProspPatch=="8"|  zzz.rand$ProspPatch=="16")
@@ -27,7 +27,7 @@ gdensran<-ggplot(zzz.rand,aes(x=gen,y=y)) +
 print(gdensran)
 
 
-zzz.soc<-subset(maxy.time.soc,maxy.time.soc$Rate==0 | maxy.time.soc$Rate==0.3| maxy.time.soc$Rate==0.5|
+zzz.soc<-subset(maxy.time.soc,maxy.time.soc$Rate==0.1 | maxy.time.soc$Rate==0.3| maxy.time.soc$Rate==0.5|
                      maxy.time.soc$Rate==0.7 | maxy.time.soc$Rate==1)
 zzz.soc<-subset(zzz.soc,zzz.soc$ProspPatch=="0" | zzz.soc$ProspPatch=="4"| 
                     zzz.soc$ProspPatch=="8"|  zzz.soc$ProspPatch=="16")

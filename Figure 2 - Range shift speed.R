@@ -1,5 +1,5 @@
-load("C:/Users/s03ap7/Desktop/Marie-Curie fellowship 2017-2019/IBM/2021-06-07 - Prospecting invasion/ProspectingInvasion/ProspectingInvasion/R codes/Prospecting_Invasions/Data/RangeShift_soc_0.85.RData")
-load("C:/Users/s03ap7/Desktop/Marie-Curie fellowship 2017-2019/IBM/2021-06-07 - Prospecting invasion/ProspectingInvasion/ProspectingInvasion/R codes/Prospecting_Invasions/Data/RangeShift_rand_0.5.RData")
+load("Data/RangeShift_soc_0.85.RData")
+load("Data/RangeShift_rand_0.5.RData")
 ##Range shift for random
 
 source("source.R")
@@ -72,7 +72,8 @@ range.shift.soc$Rate<-as.factor(1-as.numeric(as.character(range.shift.soc$Rate))
 
 rs<-rbind(range.shift.soc,range.shift.rand)
 
-tiff("Figures/Fig 2 - Range_shift_1frames.tif",res=400,compression="lzw", width=3500,height=1500)
+tiff("Figures/Figure 2 - Range_shift_rate.tif",res=600,compression="lzw", width=5000,height=3000)
+colnames(rs)[1]<-"Perceptual_Range"
 
 grs<-ggplot(rs,aes(x=Rate,y=RangeShift.mean,group=interaction(Scen,ProspPatch),fill=ProspPatch)) +
     geom_point(aes(colour=ProspPatch,shape=Scen),size=2) +
@@ -89,7 +90,8 @@ grs<-ggplot(rs,aes(x=Rate,y=RangeShift.mean,group=interaction(Scen,ProspPatch),f
                 alpha=0.3, linetype=0,  size=0.5) +
     geom_point(data=subset(rs,rs$ProspPatch==0),aes(shape=Scen),size=2,color=inferno(100)[1],show.legend=F) +
    geom_line(data=subset(rs,rs$ProspPatch==0),aes(linetype=Scen),color=inferno(100)[1],show.legend=F) +
-    facet_grid(.~CellRange) +
+    facet_grid(.~CellRange,labeller=label_both) +
+  #  scale_x_discrete(sec.axis=sec.axis(~.,name="Perceptual range",breaks = NULL, labels = NULL)))+
     guides(linetype=FALSE,shape=FALSE,line=FALSE) +
     theme(#legend.position = "none",
           text = element_text(size=10),
