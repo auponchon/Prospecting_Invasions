@@ -5,8 +5,8 @@ load("Data/RangeShift_rand_0.5.RData")
 source("source.R")
 
 labi<-paste("Speed of range expansion (row.year\u207b\u00b9)",sep="")
+rs<-rbind(range.shift.soc,range.shift.rand)
 
-range.shift.soc$Rate<-as.factor(1-as.numeric(as.character(range.shift.soc$Rate)))
 
 # g1<-ggplot(range.shift.soc,aes(x=Rate,y=RangeShift.mean,group=ProspPatch,fill=ProspPatch)) +
 #     geom_point(aes(colour=ProspPatch)) +
@@ -70,9 +70,7 @@ range.shift.soc$Rate<-as.factor(1-as.numeric(as.character(range.shift.soc$Rate))
 # 
 # dev.off()
 
-rs<-rbind(range.shift.soc,range.shift.rand)
-
-tiff("Figures/Figure 2 - Range_shift_rate.tif",res=600,compression="lzw", width=5000,height=3000)
+tiff("Figures/Figure 2 - Range_shift_rate.tif",res=600,compression="lzw", width=5000,height=2500)
 colnames(rs)[1]<-"Perceptual_Range"
 
 grs<-ggplot(rs,aes(x=Rate,y=RangeShift.mean,group=interaction(Scen,ProspPatch),fill=ProspPatch)) +
@@ -90,7 +88,7 @@ grs<-ggplot(rs,aes(x=Rate,y=RangeShift.mean,group=interaction(Scen,ProspPatch),f
                 alpha=0.3, linetype=0,  size=0.5) +
     geom_point(data=subset(rs,rs$ProspPatch==0),aes(shape=Scen),size=2,color=inferno(100)[1],show.legend=F) +
    geom_line(data=subset(rs,rs$ProspPatch==0),aes(linetype=Scen),color=inferno(100)[1],show.legend=F) +
-    facet_grid(.~CellRange,labeller=label_both) +
+    facet_grid(.~Perceptual_Range,labeller=label_both) +
   #  scale_x_discrete(sec.axis=sec.axis(~.,name="Perceptual range",breaks = NULL, labels = NULL)))+
     guides(linetype=FALSE,shape=FALSE,line=FALSE) +
     theme(#legend.position = "none",

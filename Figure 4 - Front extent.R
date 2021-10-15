@@ -1,23 +1,23 @@
 source("Source.R")
-load("Data/maxy_time_rand_0.5.RData")
-load("Data/maxy_time_soc_0.85.RData")
+load("Data/front_size_soc_0.85.RData")
+load("Data/front_size_rand_0.5.RData")
 
-xx.rand<-subset(maxy.time.rand,maxy.time.rand$Rate==0.1 |  maxy.time.rand$Rate==0.5|
-                    maxy.time.rand$Rate==0.7 | maxy.time.rand$Rate==1)
-xx.rand<-subset(xx.rand,xx.rand$ProspPatch==0 |xx.rand$ProspPatch==4|
-                    xx.rand$ProspPatch==12)
+
+xx.rand<-subset(front.size.rand,front.size.rand$gen==max(front.size.rand$gen))
+xx.rand<-subset(xx.rand,xx.rand$Rate==0|  xx.rand$Rate==0.5|
+                    xx.rand$Rate==0.7 | xx.rand$Rate==1)
+xx.rand<-subset(xx.rand,xx.rand$ProspPatch==0 |xx.rand$ProspPatch==2|xx.rand$ProspPatch==8|
+                    xx.rand$ProspPatch==16)
 xx.rand<-droplevels(xx.rand)
 
-xx.soc<-subset(maxy.time.soc,maxy.time.soc$Rate==0.1 |  maxy.time.soc$Rate==0.5|
-                   maxy.time.soc$Rate==0.7 | maxy.time.soc$Rate==1)
-xx.soc<-subset(xx.soc,xx.soc$ProspPatch==0 |xx.soc$ProspPatch==4|
-                   xx.soc$ProspPatch==12)
+xx.soc<-subset(front.size..soc,front.size..soc$gen==max(front.size..soc$gen))
+xx.soc<-subset(xx.soc,xx.soc$Rate==0 |  xx.soc$Rate==0.5|
+                   xx.soc$Rate==0.7 | xx.soc$Rate==1)
+xx.soc<-subset(xx.soc,xx.soc$ProspPatch==0 |xx.soc$ProspPatch==2|xx.soc$ProspPatch==8|
+                   xx.soc$ProspPatch==16)
 xx.soc<-droplevels(xx.soc)
 
-
 xx<-rbind(xx.soc,xx.rand)
-yy<-subset(xx,xx$yAdm>0 )
-
 
 
 ##Selection of patches with less than X individuals
@@ -25,7 +25,7 @@ yy<-subset(xx,xx$yAdm>0 )
 front.all<-subset(yy,yy$yAdm<200)
 front<-front.all %>% 
     group_by(gen,CellRange,ProspPatch,Rate,Scen) %>% 
-    summarize(Front=max(y)-min(y))
+    summarize(Front=mean(max(y))-mean(min(y)))
 
 colnames(front)[c(2,4)]<-c("Perceptual_Range","Preference")              
 
