@@ -35,7 +35,7 @@ ggx<-ggplot(yyy,aes(y,yAdm,group=interaction(Scen,ProspPatch),fill=ProspPatch))+
     scale_colour_viridis(discrete = TRUE,end=0.8,option="inferno") +
     scale_fill_viridis(discrete = TRUE,end=0.8,option="inferno") +
     facet_grid(Preference~Perceptual_Range,scales="free_x",labeller = "label_both") +
-   labs(x="Distance from first row",y="Number of adults",
+   labs(x="Distance from first row",y="Mean number or adults",
         fill="Prospected\npatches", colour="Prospected\npatches",linetype=NULL)+
     scale_x_continuous(expand=c(0.01,0.01)) + #breaks=seq(0,250,50),labels=seq(0,250,50), limits=c(0,250)
    
@@ -43,8 +43,9 @@ ggx<-ggplot(yyy,aes(y,yAdm,group=interaction(Scen,ProspPatch),fill=ProspPatch))+
     guides(linetype=FALSE) +
     theme(legend.position = "right",
           text = element_text(size=10),
-          axis.text = element_text(size=10),
+          axis.text = element_text(size=8),
           legend.text = element_text(size=8),
+          legend.title=element_text(size=8),
           panel.spacing = unit(0.75, "lines"))
 
 print(ggx)
@@ -55,15 +56,8 @@ rm(list=ls())
 load("Data/maxy_time_rand_0.5.RData")
 load("Data/maxy_time_soc_0.85.RData")
 
-ww.rand<-subset(maxy.time.rand,maxy.time.rand$gen==max(maxy.time.rand$gen))
-ww.rand<-subset(ww.rand,ww.rand$Rate==0.1 |  ww.rand$Rate==0.5|
-                    ww.rand$Rate==0.7 | ww.rand$Rate==1)
 
-ww.soc<-subset(maxy.time.soc,maxy.time.soc$gen==max(maxy.time.soc$gen))
-ww.soc<-subset(ww.soc,ww.soc$Rate==0.1 |  ww.soc$Rate==0.5|
-                   ww.soc$Rate==0.7 | ww.soc$Rate==1)
-
-zzz<-rbind(ww.soc,ww.rand)
+zzz<-rbind(maxy.time.soc,maxy.time.rand)
 
 # zzz<- ww %>% 
 #     group_by(gen,y,CellRange,ProspPatch,Rate,Scen) %>% 
@@ -72,7 +66,7 @@ zzz<-rbind(ww.soc,ww.rand)
 colnames(zzz)[3]<-"Perceptual_Range"
 colnames(zzz)[5]<-"Preference"
 
-tiff("Figures/Supplemental material - All Mean Densities towards front.tif",res=600,compression="lzw", width=5000,height=3000)
+tiff("Figures/Supplemental material - All Mean Densities towards front.tif",res=600,compression="lzw", width=5000,height=6500)
 ggx<-ggplot(zzz,aes(y,yAdm,group=interaction(Scen,ProspPatch),fill=ProspPatch))+
     geom_line(aes(colour=ProspPatch,linetype=Scen),size=0.8) +
     scale_linetype_manual(values=c("solid", "dotted")) +
@@ -81,7 +75,7 @@ ggx<-ggplot(zzz,aes(y,yAdm,group=interaction(Scen,ProspPatch),fill=ProspPatch))+
     scale_colour_viridis(discrete = TRUE,end=0.8,option="inferno") +
     scale_fill_viridis(discrete = TRUE,end=0.8,option="inferno") +
     facet_grid(Preference~Perceptual_Range,scales="free_x",labeller = "label_both") +
-    labs(x="Distance from first row",y="Number of adults",
+    labs(x="Distance from first row",y="Mean number of adults",
          fill="Prospected\npatches", colour="Prospected\npatches",linetype=NULL)+
     scale_x_continuous(expand=c(0.01,0.01)) + #breaks=seq(0,250,50),labels=seq(0,250,50), limits=c(0,250)
     
@@ -89,8 +83,9 @@ ggx<-ggplot(zzz,aes(y,yAdm,group=interaction(Scen,ProspPatch),fill=ProspPatch))+
     guides(linetype=FALSE) +
     theme(legend.position = "right",
           text = element_text(size=10),
-          axis.text = element_text(size=10),
+          axis.text = element_text(size=8),
           legend.text = element_text(size=8),
+          legend.title=element_text(size=8),
           panel.spacing = unit(0.75, "lines"))
 
 print(ggx)
