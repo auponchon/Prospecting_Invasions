@@ -1,4 +1,4 @@
-source("Source.R")
+source("R scripts/Source.R")
 load("Data/maxy_time_rand_0.5.RData")
 load("Data/maxy_time_soc_0.85.RData")
 
@@ -22,19 +22,22 @@ yyy<-rbind(xx.soc,xx.rand)
 #     group_by(gen,y,CellRange,ProspPatch,Rate,Scen) %>% 
 #     summarise(yAdm=mean(yAd,na.rm=T),yAdse=std.error(yAd,na.rm=T))
 
-colnames(yyy)[3]<-"Perceptual_Range"
-colnames(yyy)[5]<-"Preference"
+yyy$CellRange <-as.factor(paste0("Perceptual range: ",yyy$CellRange))
+yyy$Preference <-as.factor(paste0("Preference: ", yyy$Rate))
+yyy$Settlement<- revalue(yyy$Scen, c("Pers + public" = "Informed",
+                                     "Non-informed" = "Non-informed"))
+
 
 
 tiff("Figures/Figure 3 - Mean Densities towards front.tif",res=600,compression="lzw", width=5000,height=3000)
-ggx<-ggplot(yyy,aes(y,yAdm,group=interaction(Scen,ProspPatch),fill=ProspPatch))+
-    geom_line(aes(colour=ProspPatch,linetype=Scen),size=0.8) +
+ggx<-ggplot(yyy,aes(y,yAdm,group=interaction(Settlement,ProspPatch),fill=ProspPatch))+
+    geom_line(aes(colour=ProspPatch,linetype=Settlement),lwd=0.5) +
     scale_linetype_manual(values=c("solid", "dotted")) +
     geom_ribbon(aes(ymin=yAdm-yAdse, ymax=yAdm+yAdse,colour=ProspPatch), 
-                alpha=0.4, linetype=0, size=0.5)   +   
+                alpha=0.4, linetype=0)   +   
     scale_colour_viridis(discrete = TRUE,end=0.8,option="inferno") +
     scale_fill_viridis(discrete = TRUE,end=0.8,option="inferno") +
-    facet_grid(Preference~Perceptual_Range,scales="free_x",labeller = "label_both") +
+    facet_grid(Preference~CellRange,scales="free_x") +
    labs(x="Distance from first row",y="Mean number or adults",
         fill="Prospected\npatches", colour="Prospected\npatches",linetype=NULL)+
     scale_x_continuous(expand=c(0.01,0.01)) + #breaks=seq(0,250,50),labels=seq(0,250,50), limits=c(0,250)
