@@ -2,21 +2,21 @@ load("Data/RangeShift_soc_0.85.RData")
 load("Data/RangeShift_rand_0.5.RData")
 ##Range shift for random
 
-source("R scripts/source.R")
+source("R scripts/Source.R")
 
 labi<-paste("Speed of range expansion (row.year\u207b\u00b9)",sep="")
 rs<-rbind(range.shift.soc,range.shift.rand)
 rs$CellRange<-paste0("Perceptual range: ",rs$CellRange)
-rs$Settlement<- revalue(rs$Scen, c("Pers + public" = "Informed",
+rs$Emigration<- revalue(rs$Scen, c("Pers + public" = "Informed",
                                     "Non-informed" = "Non-informed"))
 
 
 tiff("Figures/Figure 2 - Range_shift_rate.tif",res=600,compression="lzw", width=5000,height=2300)
 
 
-grs<-ggplot(rs,aes(x=Rate,y=RangeShift.mean,group=interaction(Settlement,ProspPatch),fill=ProspPatch)) +
-    geom_point(aes(colour=ProspPatch,shape=Settlement),size=1.8) +
-    geom_line(aes(colour=ProspPatch,linetype=Settlement),lwd=0.3) +
+grs<-ggplot(rs,aes(x=Rate,y=RangeShift.mean,group=interaction(Emigration,ProspPatch),fill=ProspPatch)) +
+    geom_point(aes(colour=ProspPatch,shape=Emigration),size=1.8) +
+    geom_line(aes(colour=ProspPatch,linetype=Emigration),lwd=0.5) +
     scale_linetype_manual(values=c("solid", "dotted"))+
     labs(x="Probability of selecting an empty patch",y=labi,
          fill="Prospected\npatches",colour="Prospected\npatches")+
@@ -27,8 +27,8 @@ grs<-ggplot(rs,aes(x=Rate,y=RangeShift.mean,group=interaction(Settlement,ProspPa
     geom_ribbon(aes(ymin=RangeShift.mean-RangeShift.se,
                     ymax=RangeShift.mean+RangeShift.se), 
                 alpha=0.3, linetype=0,  size=0.5) +
-    geom_point(data=subset(rs,rs$ProspPatch==0),aes(shape=Settlement),size=2,color=inferno(100)[1],show.legend=F) +
-   geom_line(data=subset(rs,rs$ProspPatch==0),aes(linetype=Settlement),color=inferno(100)[1],show.legend=F) +
+    geom_point(data=subset(rs,rs$ProspPatch==0),aes(shape=Emigration),size=2,color=inferno(100)[1],show.legend=F) +
+   geom_line(data=subset(rs,rs$ProspPatch==0),aes(linetype=Emigration),color=inferno(100)[1],show.legend=F) +
     facet_grid(.~CellRange) +
 #    guides(linetype=T,shape=T,line=FALSE) +
     theme(#legend.position = "none",

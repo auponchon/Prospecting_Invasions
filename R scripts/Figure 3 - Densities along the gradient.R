@@ -24,14 +24,14 @@ yyy<-rbind(xx.soc,xx.rand)
 
 yyy$CellRange <-as.factor(paste0("Perceptual range: ",yyy$CellRange))
 yyy$Preference <-as.factor(paste0("Preference: ", yyy$Rate))
-yyy$Settlement<- revalue(yyy$Scen, c("Pers + public" = "Informed",
+yyy$Emigration<- revalue(yyy$Scen, c("Pers + public" = "Informed",
                                      "Non-informed" = "Non-informed"))
 
 
 
 tiff("Figures/Figure 3 - Mean Densities towards front.tif",res=600,compression="lzw", width=5000,height=3000)
-ggx<-ggplot(yyy,aes(y,yAdm,group=interaction(Settlement,ProspPatch),fill=ProspPatch))+
-    geom_line(aes(colour=ProspPatch,linetype=Settlement),lwd=0.5) +
+ggx<-ggplot(yyy,aes(y,yAdm,group=interaction(Emigration,ProspPatch),fill=ProspPatch))+
+    geom_line(aes(colour=ProspPatch,linetype=Emigration),lwd=0.5) +
     scale_linetype_manual(values=c("solid", "dotted")) +
     geom_ribbon(aes(ymin=yAdm-yAdse, ymax=yAdm+yAdse,colour=ProspPatch), 
                 alpha=0.4, linetype=0)   +   
@@ -39,11 +39,10 @@ ggx<-ggplot(yyy,aes(y,yAdm,group=interaction(Settlement,ProspPatch),fill=ProspPa
     scale_fill_viridis(discrete = TRUE,end=0.8,option="inferno") +
     facet_grid(Preference~CellRange,scales="free_x") +
    labs(x="Distance from first row",y="Mean number or adults",
-        fill="Prospected\npatches", colour="Prospected\npatches",linetype=NULL)+
+        fill="Prospected\npatches", colour="Prospected\npatches")+
     scale_x_continuous(expand=c(0.01,0.01)) + #breaks=seq(0,250,50),labels=seq(0,250,50), limits=c(0,250)
    
     scale_y_continuous(breaks=seq(0,600,200),expand=c(0.01,0.01),limits=c(0,650)) +
-    guides(linetype=FALSE) +
     theme(legend.position = "right",
           text = element_text(size=10),
           axis.text = element_text(size=8),
@@ -66,24 +65,24 @@ zzz<-rbind(maxy.time.soc,maxy.time.rand)
 #     group_by(gen,y,CellRange,ProspPatch,Rate,Scen) %>% 
 #     summarise(yAdm=mean(yAd,na.rm=T),yAdse=std.error(yAd,na.rm=T))
 
-colnames(zzz)[3]<-"Perceptual_Range"
-colnames(zzz)[5]<-"Preference"
+zzz$CellRange <-as.factor(paste0("Perceptual range: ",zzz$CellRange))
+zzz$Preference <-as.factor(paste0("Preference: ", zzz$Rate))
+zzz$Emigration<- revalue(zzz$Scen, c("Pers + public" = "Informed",
+                                     "Non-informed" = "Non-informed"))
 
 tiff("Figures/Supplemental material - All Mean Densities towards front.tif",res=600,compression="lzw", width=5000,height=6500)
-ggx<-ggplot(zzz,aes(y,yAdm,group=interaction(Scen,ProspPatch),fill=ProspPatch))+
-    geom_line(aes(colour=ProspPatch,linetype=Scen),size=0.8) +
+ggx<-ggplot(zzz,aes(y,yAdm,group=interaction(Emigration,ProspPatch),fill=ProspPatch))+
+    geom_line(aes(colour=ProspPatch,linetype=Emigration),lwd=0.5) +
     scale_linetype_manual(values=c("solid", "dotted")) +
     geom_ribbon(aes(ymin=yAdm-yAdse, ymax=yAdm+yAdse,colour=ProspPatch), 
                 alpha=0.4, linetype=0, size=0.5)   +   
     scale_colour_viridis(discrete = TRUE,end=0.8,option="inferno") +
     scale_fill_viridis(discrete = TRUE,end=0.8,option="inferno") +
-    facet_grid(Preference~Perceptual_Range,scales="free_x",labeller = "label_both") +
+    facet_grid(Preference~CellRange,scales="free_x") +
     labs(x="Distance from first row",y="Mean number of adults",
-         fill="Prospected\npatches", colour="Prospected\npatches",linetype=NULL)+
-    scale_x_continuous(expand=c(0.01,0.01)) + #breaks=seq(0,250,50),labels=seq(0,250,50), limits=c(0,250)
-    
+         fill="Prospected\npatches", colour="Prospected\npatches")+
+    scale_x_continuous(expand=c(0.01,0.01)) + 
     scale_y_continuous(breaks=seq(0,600,200),expand=c(0.01,0.01),limits=c(0,650)) +
-    guides(linetype=FALSE) +
     theme(legend.position = "right",
           text = element_text(size=10),
           axis.text = element_text(size=8),
