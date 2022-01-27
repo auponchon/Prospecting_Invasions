@@ -105,10 +105,9 @@ frontgg<-ggplot(front,aes(x=gen,y=Frontm,group=interaction(Emigration,ProspPatch
   scale_fill_viridis(discrete = TRUE,end=0.8,option="inferno") +
   facet_grid(Preference~CellRange,scales="free") +
   labs(x="Years",y="Front extent",
-       fill="Prospected\npatches", colour="Prospected\npatches",linetype=NULL)+
+       fill="Prospected\npatches", colour="Prospected\npatches")+
   scale_x_continuous(expand=c(0.01,0.01)) + #breaks=seq(0,250,50),labels=seq(0,250,50), limits=c(0,250)
   #    scale_y_continuous(breaks=seq(0,150,30),expand=c(0.01,0.01),limits=c(0,150)) +
-  guides(linetype=FALSE) +
   theme(legend.position = "right",
         text = element_text(size=10),
         axis.text = element_text(size=8),

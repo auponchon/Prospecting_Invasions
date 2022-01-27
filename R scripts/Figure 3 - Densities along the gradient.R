@@ -75,7 +75,7 @@ ggx<-ggplot(zzz,aes(y,yAdm,group=interaction(Emigration,ProspPatch),fill=ProspPa
     geom_line(aes(colour=ProspPatch,linetype=Emigration),lwd=0.5) +
     scale_linetype_manual(values=c("solid", "dotted")) +
     geom_ribbon(aes(ymin=yAdm-yAdse, ymax=yAdm+yAdse,colour=ProspPatch), 
-                alpha=0.4, linetype=0, size=0.5)   +   
+                alpha=0.4, linetype=0)   +   
     scale_colour_viridis(discrete = TRUE,end=0.8,option="inferno") +
     scale_fill_viridis(discrete = TRUE,end=0.8,option="inferno") +
     facet_grid(Preference~CellRange,scales="free_x") +
