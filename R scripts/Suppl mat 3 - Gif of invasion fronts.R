@@ -1,6 +1,7 @@
-source("source.R")
+source("R scripts/source.R")
 
 library(gganimate)
+library(gifski)
 
 
 load("Data/onerep_soc_0.85.RData")
@@ -38,5 +39,5 @@ my.animation <- gganim +
     transition_time(gen) +
     labs(subtitle = "Year: {round(frame_time,digits=0)}")
 
-animate(my.animation, height = 2000, width =4000,res=400,fps=5)
-anim_save("range_expansion.gif")
+animate(my.animation, height = 1000, width =2000,res=300,fps=5,renderer = gifski_renderer())
+anim_save(filename = "GIF_range_expansion.gif")
